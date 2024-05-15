@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{animal.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{animal.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/animals/add}" class="btn btn-primary ms-2">[[#{animal.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${animals.empty}">[[#{animal.list.empty}]]</div>
+            <div th:if="${!animals.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{animal.animalId.label}]]</th>
+                            <th scope="col">[[#{animal.nome.label}]]</th>
+                            <th scope="col">[[#{animal.tipo.label}]]</th>
+                            <th scope="col">[[#{animal.raca.label}]]</th>
+                            <th scope="col">[[#{animal.dataNascimento.label}]]</th>
+                            <th scope="col">[[#{animal.origem.label}]]</th>
+                            <th scope="col">[[#{animal.situacao.label}]]</th>
+                            <th scope="col">[[#{animal.parto.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="animal : ${animals}">
+                            <td>[[${animal.animalId}]]</td>
+                            <td>[[${animal.nome}]]</td>
+                            <td>[[${animal.tipo}]]</td>
+                            <td>[[${animal.raca}]]</td>
+                            <td>[[${animal.dataNascimento}]]</td>
+                            <td>[[${animal.origem}]]</td>
+                            <td>[[${animal.situacao}]]</td>
+                            <td>[[${animal.parto}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/animals/edit/{animalId}(animalId=${animal.animalId})}" class="btn btn-sm btn-secondary">[[#{animal.list.edit}]]</a>
+                                    <form th:action="@{/animals/delete/{animalId}(animalId=${animal.animalId})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{animal.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

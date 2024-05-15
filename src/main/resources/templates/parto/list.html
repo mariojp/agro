@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{parto.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{parto.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/partos/add}" class="btn btn-primary ms-2">[[#{parto.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${partoes.empty}">[[#{parto.list.empty}]]</div>
+            <div th:if="${!partoes.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{parto.partoId.label}]]</th>
+                            <th scope="col">[[#{parto.dataParto.label}]]</th>
+                            <th scope="col">[[#{parto.observacoes.label}]]</th>
+                            <th scope="col">[[#{parto.inseminacao.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="parto : ${partoes}">
+                            <td>[[${parto.partoId}]]</td>
+                            <td>[[${parto.dataParto}]]</td>
+                            <td>[[${parto.observacoes}]]</td>
+                            <td>[[${parto.inseminacao}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/partos/edit/{partoId}(partoId=${parto.partoId})}" class="btn btn-sm btn-secondary">[[#{parto.list.edit}]]</a>
+                                    <form th:action="@{/partos/delete/{partoId}(partoId=${parto.partoId})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{parto.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

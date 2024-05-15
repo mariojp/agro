@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{inseminacao.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{inseminacao.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/inseminacaos/add}" class="btn btn-primary ms-2">[[#{inseminacao.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${inseminacaos.empty}">[[#{inseminacao.list.empty}]]</div>
+            <div th:if="${!inseminacaos.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{inseminacao.inseminacaoId.label}]]</th>
+                            <th scope="col">[[#{inseminacao.dataCobertura.label}]]</th>
+                            <th scope="col">[[#{inseminacao.observacoes.label}]]</th>
+                            <th scope="col">[[#{inseminacao.metodo.label}]]</th>
+                            <th scope="col">[[#{inseminacao.situacao.label}]]</th>
+                            <th scope="col">[[#{inseminacao.vaca.label}]]</th>
+                            <th scope="col">[[#{inseminacao.touro.label}]]</th>
+                            <th scope="col">[[#{inseminacao.veterinario.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="inseminacao : ${inseminacaos}">
+                            <td>[[${inseminacao.inseminacaoId}]]</td>
+                            <td>[[${inseminacao.dataCobertura}]]</td>
+                            <td>[[${inseminacao.observacoes}]]</td>
+                            <td>[[${inseminacao.metodo}]]</td>
+                            <td>[[${inseminacao.situacao}]]</td>
+                            <td>[[${inseminacao.vaca}]]</td>
+                            <td>[[${inseminacao.touro}]]</td>
+                            <td>[[${inseminacao.veterinario}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/inseminacaos/edit/{inseminacaoId}(inseminacaoId=${inseminacao.inseminacaoId})}" class="btn btn-sm btn-secondary">[[#{inseminacao.list.edit}]]</a>
+                                    <form th:action="@{/inseminacaos/delete/{inseminacaoId}(inseminacaoId=${inseminacao.inseminacaoId})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{inseminacao.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

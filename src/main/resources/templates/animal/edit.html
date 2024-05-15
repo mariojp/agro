@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{animal.edit.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{animal.edit.headline}]]</h1>
+                <div>
+                    <a th:href="@{/animals}" class="btn btn-secondary">[[#{animal.edit.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('animal')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='animal', field='animalId', disabled=true, type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='animal', field='nome', required=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='animal', field='tipo', required=true, type='radio')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='animal', field='raca', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='animal', field='dataNascimento', inputClass='js-datepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='animal', field='origem')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='animal', field='situacao', required=true, type='radio')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='animal', field='parto', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='animal', field='mae', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='animal', field='pai', type='select')}" />
+                <input type="submit" th:value="#{animal.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

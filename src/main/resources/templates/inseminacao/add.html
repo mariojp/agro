@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{inseminacao.add.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{inseminacao.add.headline}]]</h1>
+                <div>
+                    <a th:href="@{/inseminacaos}" class="btn btn-secondary">[[#{inseminacao.add.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('inseminacao')}" />
+            <form th:action="${requestUri}" method="post">
+                <div th:replace="~{fragments/forms::inputRow(object='inseminacao', field='dataCobertura', required=true, inputClass='js-datepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='inseminacao', field='observacoes')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='inseminacao', field='metodo', required=true, type='radio')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='inseminacao', field='situacao', required=true, type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='inseminacao', field='vaca', required=true, type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='inseminacao', field='touro', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='inseminacao', field='veterinario', type='select')}" />
+                <input type="submit" th:value="#{inseminacao.add.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>
